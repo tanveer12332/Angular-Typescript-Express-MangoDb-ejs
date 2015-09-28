@@ -3,6 +3,7 @@ import express = require('express');
 import logger = require('morgan');
 import bodyParser = require('body-parser');
 import path = require('path');
+//local path
 var mongojs = require('mongojs');
 var viewRenderEngine = require('ejs');
 var db = mongojs('meanteckapp', ['meanteckapp']);
