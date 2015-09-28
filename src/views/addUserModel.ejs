@@ -1,0 +1,64 @@
+               
+<!--<div ng-controller="AppCtrl">-->
+  <script type="text/ng-template" id="myModal">
+      <div class="modal-header">
+         <h3 class="modal-title">Add User Info</h3>
+      </div>
+     <div class="modal-body" >
+        <div class="row">
+            <form role="form">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>User Name</label>
+                        <input class="form-control" ng-model="contact.name" placeholder="Enter your name" required="required">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input class="form-control" ng-model="contact.email" placeholder="Enter your email">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input class="form-control" ng-model="contact.phone" placeholder="Enter your number">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input class="form-control" ng-model="contact.address" placeholder="Enter your address">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>City</label>
+                        <input class="form-control" ng-model="contact.city" placeholder="Enter your city">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Country</label>
+                        <input class="form-control" ng-model="contact.country" placeholder="Enter your country">
+                    </div>
+                </div>
+                    <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Designation</label>
+                        <input class="form-control" ng-model="contact.designation" placeholder="Enter your designation">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+    
+        <button class="btn btn-info" ng-show = "IsVisible"  ng-click="update()">Update</button>
+       
+        <button class="btn btn-primary" ng-hide = "IsVisible" type="button" ng-click="addContact()">Save</button>
+       
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+    </script>
+<!---</div>-->
