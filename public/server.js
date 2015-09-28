@@ -1,6 +1,9 @@
 /// <reference path='./../typings/tsd.d.ts' />
 var express = require('express');
+var loggar = require('morgan');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 //local path
 var mongojs = require('mongojs');
 var viewRenderEngine = require('ejs');
@@ -11,6 +14,13 @@ app.use(express.static("./public"));
 app.use(bodyParser.json());
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
+app.use(loggar('Server started'));
+app.use(cookieParser());
+app.use(session({
+    secret: 'keyboardcat',
+    resave: true,
+    saveUninitialized: true
+}));
 //check route error
 app.use(function (err, req, res, next) {
     console.log(err + ":" + "Error");
@@ -39,7 +49,9 @@ function logger1(prefix){
 }*/
 //monting 
 app.use('/admin', function (req, res, next) {
-    console.log("admin routes");
+    //console.log("admin routes");
+    console.log(req.cookies);
+    //confirm.log(req.session);
     res.send('admin routes');
     next();
 });
