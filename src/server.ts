@@ -1,27 +1,45 @@
 /// <reference path='./../typings/tsd.d.ts' />
 import express = require('express');
-import logger = require('morgan');
+var loggar = require('morgan');
 import bodyParser = require('body-parser');
+
+var cookieParser = require ('cookie-parser');
+var session  = require('express-session');
 import path = require('path');
 //local path
 var mongojs = require('mongojs');
+
 var viewRenderEngine = require('ejs');
 var db = mongojs('meanteckapp', ['meanteckapp']);
 var app:express.Express = express();
 //app.use(express.static(__dirname + "/public"));
 app.use(express.static("./public"));
+
 app.use(bodyParser.json());
+
 app.set('views','./src/views');
 app.set('view engine','ejs');
+
+app.use(loggar('Server started'));
+app.use(cookieParser());
+
+app.use(session({
+  secret: 'keyboardcat',
+  resave: true,
+  saveUninitialized: true
+ // cookie: { secure: true }
+}));
 
 //check route error
 app.use(function (err:any, req, res, next){
 	console.log(err + ":" + "Error");
 	res.send(err);
+	
 });
 
 //custom middleware
 app.use(function(req, res, next){
+	
 	console.log('this is first middle ware');
 	next();
 });
@@ -45,7 +63,10 @@ function logger1(prefix){
 
 //monting 
 app.use('/admin',  function (req, res, next){
-	console.log("admin routes");
+	//console.log("admin routes");
+	
+	console.log(req.cookies);
+	//confirm.log(req.session);
 	res.send('admin routes');
 	next();
 })
@@ -53,6 +74,7 @@ app.use('/admin',  function (req, res, next){
 
 app.get('/', (req, res, next) =>{
 	console.log('/ login middleware called');
+	
 	next();
 
 },(req, res) => {
