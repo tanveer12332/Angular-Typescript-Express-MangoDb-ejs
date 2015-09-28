@@ -1,6 +1,7 @@
 /// <reference path='./../typings/tsd.d.ts' />
 var express = require('express');
 var bodyParser = require('body-parser');
+//local path
 var mongojs = require('mongojs');
 var viewRenderEngine = require('ejs');
 var db = mongojs('meanteckapp', ['meanteckapp']);
