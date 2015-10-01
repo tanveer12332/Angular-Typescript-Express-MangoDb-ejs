@@ -1,25 +1,26 @@
 var meanApp = angular.module('meanApp', ['ui.bootstrap']);
 
-meanApp.controller('AppCtrl', function($scope, $http,$modal,$log){
+meanApp.controller('AppCtrl', function($scope, $http,$modal,$log,myService){
+ 
  $scope.totalItems = 2;
-  $scope.currentPage = 1;
+ $scope.currentPage = 1;
 
   $scope.setPage = function (pageNo) {
-    $scope.currentPage = pageNo;
+  $scope.currentPage = pageNo;
   };
 
   $scope.pageChanged = function() {
     $log.log('Page changed to: ' + $scope.currentPage);
   };
-	var refresh = function(){
+	/*var refresh = function(){
 	$http.get('/getcontacts').success(function(responce){
 	//	console.log('i get the data i requested');
 		$scope.contactList = responce;	
 		$scope.contact = "";
 	});
-	};
+	};*/
 	
-	refresh();
+	myService.refresh($http,$scope);
 
   $scope.showModel = function () {
    var  modalInstance = $modal.open({
@@ -33,7 +34,7 @@ meanApp.controller('AppCtrl', function($scope, $http,$modal,$log){
 	// console.log(id);
   
 	 $http.delete('/delcontacts/' + id).success(function(responce){
-		 refresh();
+		myService.refresh($http,$scope);
 	 })
  }
  
@@ -51,18 +52,25 @@ meanApp.controller('AppCtrl', function($scope, $http,$modal,$log){
           
           }
 	     });
+       
 	   }
+     
 })
 
 
-meanApp.controller('ModalInstanceCtrl', function ($scope, $http,$modal,$modalInstance) {
+meanApp.controller('ModalInstanceCtrl', function ($scope, $http,$modal,$modalInstance,myService,$timeout) {
   
   $scope.addContact = function(){
 	// console.log($scope.contact);
 	 $http.post('/setcontacts', $scope.contact).success(function(responce){
 	// console.log(responce);
 	  $modalInstance.close();
+    // myService.refresh($http,$scope);
 	 })
+   $timeout(function() {
+     myService.refresh($http,$scope);
+       console.log('Refresh function execute');
+    }, 2000)
 	// refresh();
  };
  
@@ -73,7 +81,7 @@ meanApp.controller('ModalInstanceCtrl', function ($scope, $http,$modal,$modalIns
      
 });
 
-meanApp.controller('editModalInstanceCtrl', function ($scope, $http,$modal,$modalInstance,items, id) {
+meanApp.controller('editModalInstanceCtrl', function ($scope, $http,$modal,$modalInstance,items, id, myService) {
     $scope.IsVisible = true;
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
@@ -88,12 +96,14 @@ meanApp.controller('editModalInstanceCtrl', function ($scope, $http,$modal,$moda
      console.log($scope.contact._id);
      $http.put('/updatecontact/' + $scope.contact._id, $scope.contact).success(function(responce){
      $modalInstance.dismiss('cancel');
+      myService.refresh($http,$scope);
       // refresh();
      })
    }
      
 });
 meanApp.controller('loginCtrl', function ($scope, $http,$window) {
+        
   $scope.usernamemsg = "";
   $scope.userpasmsg = "";
   

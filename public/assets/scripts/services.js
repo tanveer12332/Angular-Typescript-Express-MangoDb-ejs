@@ -1,3 +1,15 @@
+ meanApp.factory('myService', function() {
+        return {
+            refresh: function($http,$scope) {
+                $http.get('/getcontacts').success(function(responce){
+                console.log('i get the data i requested');
+	            $scope.contactList = responce;	
+                $scope.contact = "";
+	})
+                
+            }
+        };
+    });
 /*meanApp.factory('myService', function($http) {
    return {
      getFoo: function() {
