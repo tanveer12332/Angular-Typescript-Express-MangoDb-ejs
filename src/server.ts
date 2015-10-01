@@ -99,7 +99,7 @@ app.get('/getcontacts', function(req, res){
 console.log('I received GET http requrest');
 db.meanteckapp.find(function (err, docs) {
 //
-console.log(docs);
+//console.log(docs);
 res.json(docs);
 });
 });
