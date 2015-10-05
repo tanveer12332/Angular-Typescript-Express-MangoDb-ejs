@@ -251,7 +251,7 @@
         <!-- end navbar top -->
 
         <!-- navbar side -->
-        <nav class="navbar-default navbar-static-side" role="navigation">
+        <nav class="navbar-default navbar-static-side" role="navigation" ng-controller="searchCtrl">
             <!-- sidebar-collapse -->
             <div class="sidebar-collapse">
                 <!-- side-menu -->
@@ -274,14 +274,16 @@
                     <li class="sidebar-search">
                         <!-- search section-->
                         <div class="input-group custom-search-form">
-                            <input type="text" class="form-control" placeholder="Search...">
+                            <input type="text" class="form-control" ng-model="userinput" placeholder="Search...">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
+                                <button class="btn btn-default" type="button" ng-click="SearchFun()" >
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
+                          
                         </div>
                         <!--end search section-->
+                      
                     </li>
                     <li class="selected">
                         <a href="/dashbord"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
