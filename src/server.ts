@@ -136,6 +136,23 @@ app.put('/updatecontact/:id', function(req, res){
     }
   );
 });
+app.get('/searchcontact/:userSearch', function(req, res){
+	
+	var userSearch = req.params.userSearch;
+	
+	db.meanteckapp.find( { name: { $in: [ userSearch ] } },function(err, doc){
+		for(var i = 0; i < doc.length; i++){
+		if((doc[i].name) == userSearch){
+			res.json(doc);
+			console.log(doc[i].name);
+			return;
+		}
+	}
+		console.log("User Not Found");
+	})
+	
+	
+})
 
 ///server setting 
 var port: number= process.env.PORT || 3000;
